@@ -16,11 +16,11 @@ def userProfile(request, field=None, command=None):
 	user = get_user(request)
 	userProf = UserProfile.objects.get(user=user)
 	if command == 'edit':
-		if field in ( 'avatar', 'skype', 'phone'):
-			userProf.__dict__[field] = request.POST[field]
+		if field in ('avatar', 'skype', 'phone'):
+			userProf.__setattr__(field, request.POST[field])
 			userProf.save()
 		elif field in ('first_name', 'last_name'):
-			user.__dict__[field] = request.POST[field]
+			user.__setattr__(field, request.POST[field])
 			user.save()
 		elif field == 'password':
 			user.set_password(request.POST[field])
@@ -32,4 +32,7 @@ def userProfile(request, field=None, command=None):
 
 
 def PubList(request,**kwargs):
+	publist = []
+	if kwargs['field'] == 'creationDate':
+		publist = Article.objects.get(author=get_user(request)).order_by('')
 	return render(request,'userProfile/pubList.html')
