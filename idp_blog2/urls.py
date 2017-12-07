@@ -19,8 +19,8 @@ from django.contrib import admin, auth
 from user_profile.views import userProfile
 
 urlpatterns = [
-    url(r'^$',include('_blog.urls')),
+    url(r'^',include('_blog.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^accounts/profile/$', include('user_profile.urls')),
+    url(r'^accounts/profile/', include('user_profile.urls')),
     url(r'^admin/', admin.site.urls),
 ]
